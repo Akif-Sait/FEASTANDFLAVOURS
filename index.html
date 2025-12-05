@@ -41,11 +41,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-
         /* --- Navigation --- */
         nav {
             position: fixed;
@@ -243,11 +238,6 @@
             padding-bottom: 5px;
         }
 
-        .price {
-            color: var(--gold);
-            font-weight: bold;
-        }
-
         /* --- QR Code & Contact --- */
         .contact-section {
             background: var(--white);
@@ -288,7 +278,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
-            .nav-links { display: none; } /* Simplified for mobile */
+            .nav-links { display: none; }
             .about { padding: 3rem 5%; }
         }
     </style>
@@ -297,7 +287,7 @@
 
     <nav>
         <div class="logo">
-            <h2 class="brand-font" style="color:var(--gold)">FF</h2>
+            <img src="logo.png" alt="FF Logo" style="height: 60px;"> 
         </div>
         <div class="nav-links">
             <a href="#home">Home</a>
@@ -342,64 +332,64 @@
                 <h3 class="category-title">Starters</h3>
                 
                 <div class="sub-cat">Rolls</div>
-                <div class="menu-item"><span>Chicken Spring Rolls</span><span class="price">25</span></div>
-                <div class="menu-item"><span>Chicken Rolls</span><span class="price">40</span></div>
-                <div class="menu-item"><span>Chicken (Tikka/Bhuna/Malai)</span><span class="price">45</span></div>
-                <div class="menu-item"><span>Chicken Frankie</span><span class="price">45</span></div>
+                <div class="menu-item"><span>Chicken Spring Rolls</span></div>
+                <div class="menu-item"><span>Chicken Rolls</span></div>
+                <div class="menu-item"><span>Chicken (Tikka/Bhuna/Malai)</span></div>
+                <div class="menu-item"><span>Chicken Frankie</span></div>
 
                 <div class="sub-cat">Sandwiches</div>
-                <div class="menu-item"><span>Classic Chicken Sandwich</span><span class="price">60</span></div>
-                <div class="menu-item"><span>Chicken Club Sandwich</span><span class="price">50</span></div>
-                <div class="menu-item"><span>Subway Sandwich (Chicken)</span><span class="price">50</span></div>
-                <div class="menu-item"><span>Arabian Sandwich (Chicken)</span><span class="price">50</span></div>
+                <div class="menu-item"><span>Classic Chicken Sandwich</span></div>
+                <div class="menu-item"><span>Chicken Club Sandwich</span></div>
+                <div class="menu-item"><span>Subway Sandwich (Chicken)</span></div>
+                <div class="menu-item"><span>Arabian Sandwich (Chicken)</span></div>
 
                 <div class="sub-cat">Kababs</div>
-                <div class="menu-item"><span>Mutton Shami Kabab</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Chicken Cheese Kabab</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Kulfi Chicken</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Paper Chicken</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Peri Peri Cheese Cones</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Foil Chicken (Whole Leg)</span><span class="price">-</span></div>
+                <div class="menu-item"><span>Mutton Shami Kabab</span></div>
+                <div class="menu-item"><span>Chicken Cheese Kabab</span></div>
+                <div class="menu-item"><span>Kulfi Chicken</span></div>
+                <div class="menu-item"><span>Paper Chicken</span></div>
+                <div class="menu-item"><span>Peri Peri Cheese Cones</span></div>
+                <div class="menu-item"><span>Foil Chicken (Whole Leg)</span></div>
             </div>
 
             <div class="menu-card">
                 <h3 class="category-title">Main Course</h3>
                 
                 <div class="sub-cat">Gravies</div>
-                <div class="menu-item"><span>Normal Gosht</span><span class="price">15</span></div>
-                <div class="menu-item"><span>Dal Gosht</span><span class="price">30</span></div>
-                <div class="menu-item"><span>Mutton Nihari</span><span class="price">35</span></div>
-                <div class="menu-item"><span>Butter Chicken (500g Boneless)</span><span class="price">50</span></div>
-                <div class="menu-item"><span>Adraki Chicken (500g Boneless)</span><span class="price">50</span></div>
-                <div class="menu-item"><span>Patiala Chicken (Whole Legs)</span><span class="price">70</span></div>
-                <div class="menu-item"><span>Normal Chicken</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Chicken Tikka</span><span class="price">70</span></div>
-                <div class="menu-item"><span>Chicken Malai Tikka</span><span class="price">70</span></div>
-                <div class="menu-item"><span>Tawa Gosht</span><span class="price">40</span></div>
-                <div class="menu-item"><span>Bhuna Gosht</span><span class="price">40</span></div>
-                <div class="menu-item"><span>Dabba Gosht</span><span class="price">40</span></div>
+                <div class="menu-item"><span>Normal Gosht</span></div>
+                <div class="menu-item"><span>Dal Gosht</span></div>
+                <div class="menu-item"><span>Mutton Nihari</span></div>
+                <div class="menu-item"><span>Butter Chicken (500g Boneless)</span></div>
+                <div class="menu-item"><span>Adraki Chicken (500g Boneless)</span></div>
+                <div class="menu-item"><span>Patiala Chicken (Whole Legs)</span></div>
+                <div class="menu-item"><span>Normal Chicken</span></div>
+                <div class="menu-item"><span>Chicken Tikka</span></div>
+                <div class="menu-item"><span>Chicken Malai Tikka</span></div>
+                <div class="menu-item"><span>Tawa Gosht</span></div>
+                <div class="menu-item"><span>Bhuna Gosht</span></div>
+                <div class="menu-item"><span>Dabba Gosht</span></div>
             </div>
 
             <div class="menu-card">
                 <h3 class="category-title">Desserts & Specials</h3>
                 
                 <div class="sub-cat">Desserts</div>
-                <div class="menu-item"><span>Brownies</span><span class="price">15</span></div>
-                <div class="menu-item"><span>Date & Walnut Cake</span><span class="price">15</span></div>
-                <div class="menu-item"><span>Banana Walnut Muffins</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Shahi Tukda</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Tiramisu</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Strawberry Surprise</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Banoffee Pie</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Baklava / Kunafa</span><span class="price">-</span></div>
+                <div class="menu-item"><span>Brownies</span></div>
+                <div class="menu-item"><span>Date & Walnut Cake</span></div>
+                <div class="menu-item"><span>Banana Walnut Muffins</span></div>
+                <div class="menu-item"><span>Shahi Tukda</span></div>
+                <div class="menu-item"><span>Tiramisu</span></div>
+                <div class="menu-item"><span>Strawberry Surprise</span></div>
+                <div class="menu-item"><span>Banoffee Pie</span></div>
+                <div class="menu-item"><span>Baklava / Kunafa</span></div>
 
                 <div class="sub-cat">Fari's Specials</div>
-                <div class="menu-item"><span>Raan Rice</span><span class="price">15</span></div>
-                <div class="menu-item"><span>Mutton Haleem</span><span class="price">30</span></div>
-                <div class="menu-item"><span>Mutton Harissa</span><span class="price">30</span></div>
-                <div class="menu-item"><span>Murgh Musallam</span><span class="price">20</span></div>
-                <div class="menu-item"><span>Gondh Ke Laddu / Papdi</span><span class="price">-</span></div>
-                <div class="menu-item"><span>Parsi Mawa Cake</span><span class="price">-</span></div>
+                <div class="menu-item"><span>Raan Rice</span></div>
+                <div class="menu-item"><span>Mutton Haleem</span></div>
+                <div class="menu-item"><span>Mutton Harissa</span></div>
+                <div class="menu-item"><span>Murgh Musallam</span></div>
+                <div class="menu-item"><span>Gondh Ke Laddu / Papdi</span></div>
+                <div class="menu-item"><span>Parsi Mawa Cake</span></div>
             </div>
 
         </div>
@@ -410,7 +400,7 @@
         
         <div class="qr-container">
             <p style="margin-bottom: 10px; font-weight: bold; color: var(--navy);">SCAN TO VIEW MENU</p>
-            <img src="qr-code.png" alt="Scan for Menu" class="qr-img">
+            <img src="qr_code.png" alt="Scan for Menu" class="qr-img">
         </div>
 
         <div class="contact-info">
