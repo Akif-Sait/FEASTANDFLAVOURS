@@ -4,327 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feast & Flavours | Premium Homemade Cuisine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- CSS Variables & Reset --- */
         :root {
             --gold: #d4af37;
-            --gold-gradient: linear-gradient(45deg, #d4af37, #f3e5ab, #d4af37);
-            --navy: #0c1944; /* Your specific dark blue */
+            --gold-light: #f3e5ab;
+            --navy: #0c1944;
             --pink: #fcdde6;
             --white: #ffffff;
-            --glass: rgba(12, 25, 68, 0.85);
+            --glass-nav: rgba(12, 25, 68, 0.85);
+            --glass-card: rgba(255, 255, 255, 0.03);
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background-color: var(--navy); color: var(--white); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: var(--font-title); }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--navy);
-            color: var(--white);
-            overflow-x: hidden;
+        /* --- Advanced: Pre-loader --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--navy); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
         }
-
-        h1, h2, h3, .brand-font {
-            font-family: 'Playfair Display', serif;
+        .loader-logo {
+            width: 100px; animation: pulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
         }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
 
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Advanced: Scroll Progress Bar --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            z-index: 1001; transition: width 0.1s;
         }
 
         /* --- Navigation --- */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            position: fixed; top: 0; width: 100%; padding: 0.8rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass-nav); backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
         }
-
-        .logo img {
-            height: 60px; /* Put your FF logo here */
+        /* Scrolled state for navbar (handled by JS later if needed, but base style is good) */
+        .nav-logo {
+            height: 75px; /* Increased visibility */
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            transition: transform 0.3s;
         }
+        .nav-logo:hover { transform: scale(1.05); }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
+        .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+            color: var(--white); text-decoration: none; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 500; font-size: 0.9rem; position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--gold);
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--gold); transition: width 0.3s;
         }
+        .nav-links a:hover::after { width: 100%; }
 
         .cta-btn {
-            padding: 10px 25px;
-            background: var(--gold-gradient);
-            color: var(--navy);
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: transform 0.3s;
-            text-decoration: none;
+            padding: 12px 30px; background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--navy); border: none; font-weight: 600; border-radius: 50px;
+            text-decoration: none; transition: all 0.3s; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
-
-        .cta-btn:hover {
-            transform: scale(1.05);
-        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.5); }
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            /* Placeholder for your background food image */
-            background: linear-gradient(rgba(12, 25, 68, 0.7), rgba(12, 25, 68, 0.7)), url('hero_bg.jpg');
-            background-size: cover;
-            background-attachment: fixed; /* Parallax effect */
-            background-position: center;
+            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(rgba(12, 25, 68, 0.6), rgba(12, 25, 68, 0.8)), url('hero_bg.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            padding-top: 80px;
         }
-
-        .hero-content {
-            animation: fadeIn 1.5s ease-out;
+        .hero-content { animation: fadeInUp 1.5s ease-out; }
+        /* New prominent hero logo */
+        .hero-logo {
+            width: 180px; margin-bottom: 2rem;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
-
         .hero h1 {
-            font-size: 5rem;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            font-size: 4.5rem; margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .hero p.tagline { font-size: 1.8rem; font-weight: 300; margin-bottom: 2.5rem; font-style: italic; }
 
-        .hero p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- About Section --- */
         .about {
-            padding: 5rem 10%;
-            background-color: var(--pink);
-            color: var(--navy);
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
+            padding: 7rem 10%; background-color: var(--pink); color: var(--navy);
+            display: flex; align-items: center; gap: 5rem;
         }
-
-        .about-text {
-            flex: 1;
+        .about-text h2 { font-size: 3.5rem; margin-bottom: 2rem; position: relative; }
+        .about-text h2::before {
+            content: 'Our Story'; position: absolute; top: -30px; left: 0;
+            font-family: var(--font-body); font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold);
         }
-
-        .about h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--navy);
-        }
-
-        .about-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
-
-        .feature-item i {
-            color: var(--gold);
-        }
+        .about-text p { font-size: 1.2rem; line-height: 1.8; margin-bottom: 3rem; }
+        .about-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .feature-item { display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 1.1rem; }
+        .feature-item i { color: var(--gold); font-size: 1.3rem; }
 
         /* --- Menu Section --- */
-        .menu-section {
-            padding: 5rem 5%;
-            background-color: var(--navy);
-        }
-
+        .menu-section { padding: 7rem 5%; background-color: var(--navy); position: relative; }
         .section-title {
-            text-align: center;
-            color: var(--gold);
-            font-size: 3.5rem;
-            margin-bottom: 4rem;
-            position: relative;
+            text-align: center; color: var(--gold); font-size: 4rem; margin-bottom: 5rem;
         }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: var(--gold);
-            margin: 10px auto;
-        }
-
         .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem;
         }
-
         .menu-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            background: var(--glass-card);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 3rem; border-radius: 20px;
+            backdrop-filter: blur(10px); transition: all 0.4s ease;
         }
-
         .menu-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--gold); transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); background: rgba(255, 255, 255, 0.05);
         }
-
         .category-title {
-            color: var(--pink);
-            font-size: 1.8rem;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 10px;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            color: var(--pink); font-size: 2rem; text-align: center;
+            margin-bottom: 2.5rem; position: relative;
         }
-
-        .sub-cat {
-            color: var(--gold);
-            font-weight: bold;
-            margin: 15px 0 10px 0;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+        .category-title::after {
+            content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0;
         }
-
+        .sub-cat { color: var(--gold); font-weight: 600; margin: 2rem 0 1rem; text-transform: uppercase; letter-spacing: 1px; }
         .menu-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
-            padding-bottom: 5px;
+            padding: 10px 0; border-bottom: 1px dotted rgba(255,255,255,0.1);
+            font-size: 1.1rem; transition: padding-left 0.3s;
         }
+        .menu-card:hover .menu-item:hover { padding-left: 10px; border-color: var(--gold); }
 
-        /* --- QR Code & Contact --- */
+        /* --- Contact Section (QR Removed) --- */
         .contact-section {
-            background: var(--white);
-            color: var(--navy);
-            padding: 5rem 10%;
-            text-align: center;
+            background: var(--white); color: var(--navy); padding: 7rem 10%;
+            text-align: center; position: relative;
         }
-
-        .qr-container {
-            background: var(--pink);
-            padding: 2rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .contact-container { max-width: 600px; margin: 0 auto; }
+        .contact-info p {
+            font-size: 1.4rem; margin: 1.5rem 0; display: flex; align-items: center; justify-content: center; gap: 15px;
         }
-
-        .qr-img {
-            width: 200px;
-            height: 200px;
-            mix-blend-mode: multiply; /* Helps blend QR if it has white bg */
-        }
-
-        .contact-info {
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
+        .contact-info i { color: var(--gold); font-size: 1.6rem; }
 
         /* --- Footer --- */
         footer {
-            background: #08102b;
-            padding: 2rem;
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
+            background: #08102b; padding: 3rem; text-align: center;
+            color: rgba(255,255,255,0.6); font-size: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
         }
 
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
             .nav-links { display: none; }
-            .about { padding: 3rem 5%; }
+            .hero h1 { font-size: 3rem; }
+            .hero-logo { width: 140px; }
+            .about { padding: 5rem 5%; flex-direction: column; }
+            .about-features { grid-template-columns: 1fr; }
+            .menu-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <div id="preloader">
+        <img src="logo.png" alt="Loading..." class="loader-logo">
+    </div>
+
+    <div id="scroll-progress"></div>
+
     <nav>
-        <div class="logo">
-            <img src="logo.png" alt="FF Logo" style="height: 60px;"> 
-        </div>
+        <a href="#home"><img src="logo.png" alt="Feast & Flavours Logo" class="nav-logo"></a>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">Our Story</a>
             <a href="#menu">Menu</a>
             <a href="#contact">Contact</a>
         </div>
-        <a href="https://wa.me/919986189889" class="cta-btn">ORDER NOW</a>
+        <a href="https://wa.me/919986189889" class="cta-btn"><i class="fab fa-whatsapp"></i> ORDER NOW</a>
     </nav>
 
     <section id="home" class="hero">
         <div class="hero-content">
+            <img src="logo.png" alt="Feast & Flavours Logo" class="hero-logo">
             <h1>Feast & Flavours</h1>
-            <p>Homemade with Love, Served with Pride.</p>
-            <p style="font-size: 1rem; color: var(--pink); margin-top: -1.5rem; margin-bottom: 2rem;">By Farhat Sait</p>
-            <a href="#menu" class="cta-btn">VIEW MENU</a>
+            <p class="tagline">Homemade with Love, Served with Pride.</p>
+            <p style="font-size: 1.1rem; color: var(--pink); margin-top: -2rem; margin-bottom: 3rem; font-weight: 500;">By Farhat Sait</p>
+            <a href="#menu" class="cta-btn">EXPLORE MENU</a>
         </div>
     </section>
 
     <section id="about" class="about">
         <div class="about-text">
             <h2>The Fari's Promise</h2>
-            <p style="line-height: 1.8; font-size: 1.1rem;">
-                At Feast & Flavours, we believe in feeding you what we would eat ourselves. 
-                Our kitchen is a place of passion where premium ingredients meet traditional recipes.
+            <p>
+                At Feast & Flavours, food is more than sustenance; it's an emotion. We believe in serving you exactly what we would proudly serve our own family. Our kitchen is a sanctuary where premium, carefully selected ingredients meet authentic traditional recipes, cooked with passion and patience.
             </p>
             <div class="about-features">
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Premium Ingredients</div>
+                <div class="feature-item"><i class="fas fa-star"></i> Premium Ingredients</div>
                 <div class="feature-item"><i class="fas fa-ban"></i> No Artificial Colors</div>
-                <div class="feature-item"><i class="fas fa-leaf"></i> No Preservatives</div>
+                <div class="feature-item"><i class="fas fa-seedling"></i> No Preservatives</div>
                 <div class="feature-item"><i class="fas fa-heart"></i> 100% Homemade</div>
             </div>
         </div>
     </section>
 
     <section id="menu" class="menu-section">
-        <h2 class="section-title">Our Menu</h2>
+        <h2 class="section-title">Our Collection</h2>
         
         <div class="menu-grid">
             
@@ -332,91 +230,108 @@
                 <h3 class="category-title">Starters</h3>
                 
                 <div class="sub-cat">Rolls</div>
-                <div class="menu-item"><span>Chicken Spring Rolls</span></div>
-                <div class="menu-item"><span>Chicken Rolls</span></div>
-                <div class="menu-item"><span>Chicken (Tikka/Bhuna/Malai)</span></div>
-                <div class="menu-item"><span>Chicken Frankie</span></div>
+                <div class="menu-item">Chicken Spring Rolls</div>
+                <div class="menu-item">Chicken Rolls</div>
+                <div class="menu-item">Chicken (Tikka/Bhuna/Malai)</div>
+                <div class="menu-item">Chicken Frankie</div>
 
                 <div class="sub-cat">Sandwiches</div>
-                <div class="menu-item"><span>Classic Chicken Sandwich</span></div>
-                <div class="menu-item"><span>Chicken Club Sandwich</span></div>
-                <div class="menu-item"><span>Subway Sandwich (Chicken)</span></div>
-                <div class="menu-item"><span>Arabian Sandwich (Chicken)</span></div>
+                <div class="menu-item">Classic Chicken Sandwich</div>
+                <div class="menu-item">Chicken Club Sandwich</div>
+                <div class="menu-item">Subway Sandwich (Chicken)</div>
+                <div class="menu-item">Arabian Sandwich (Chicken)</div>
 
                 <div class="sub-cat">Kababs</div>
-                <div class="menu-item"><span>Mutton Shami Kabab</span></div>
-                <div class="menu-item"><span>Chicken Cheese Kabab</span></div>
-                <div class="menu-item"><span>Kulfi Chicken</span></div>
-                <div class="menu-item"><span>Paper Chicken</span></div>
-                <div class="menu-item"><span>Peri Peri Cheese Cones</span></div>
-                <div class="menu-item"><span>Foil Chicken (Whole Leg)</span></div>
+                <div class="menu-item">Mutton Shami Kabab</div>
+                <div class="menu-item">Chicken Cheese Kabab</div>
+                <div class="menu-item">Kulfi Chicken</div>
+                <div class="menu-item">Paper Chicken</div>
+                <div class="menu-item">Peri Peri Cheese Cones</div>
+                <div class="menu-item">Foil Chicken (Whole Leg)</div>
             </div>
 
             <div class="menu-card">
                 <h3 class="category-title">Main Course</h3>
                 
-                <div class="sub-cat">Gravies</div>
-                <div class="menu-item"><span>Normal Gosht</span></div>
-                <div class="menu-item"><span>Dal Gosht</span></div>
-                <div class="menu-item"><span>Mutton Nihari</span></div>
-                <div class="menu-item"><span>Butter Chicken (500g Boneless)</span></div>
-                <div class="menu-item"><span>Adraki Chicken (500g Boneless)</span></div>
-                <div class="menu-item"><span>Patiala Chicken (Whole Legs)</span></div>
-                <div class="menu-item"><span>Normal Chicken</span></div>
-                <div class="menu-item"><span>Chicken Tikka</span></div>
-                <div class="menu-item"><span>Chicken Malai Tikka</span></div>
-                <div class="menu-item"><span>Tawa Gosht</span></div>
-                <div class="menu-item"><span>Bhuna Gosht</span></div>
-                <div class="menu-item"><span>Dabba Gosht</span></div>
+                <div class="sub-cat">Rich Gravies</div>
+                <div class="menu-item">Normal Gosht</div>
+                <div class="menu-item">Dal Gosht</div>
+                <div class="menu-item">Mutton Nihari</div>
+                <div class="menu-item">Butter Chicken (500g Boneless)</div>
+                <div class="menu-item">Adraki Chicken (500g Boneless)</div>
+                <div class="menu-item">Patiala Chicken (Whole Legs)</div>
+                <div class="menu-item">Chicken Tikka Masala</div>
+                <div class="menu-item">Chicken Malai Tikka Masala</div>
+                <div class="menu-item">Tawa Gosht</div>
+                <div class="menu-item">Bhuna Gosht</div>
+                <div class="menu-item">Dabba Gosht</div>
             </div>
 
             <div class="menu-card">
                 <h3 class="category-title">Desserts & Specials</h3>
                 
-                <div class="sub-cat">Desserts</div>
-                <div class="menu-item"><span>Brownies</span></div>
-                <div class="menu-item"><span>Date & Walnut Cake</span></div>
-                <div class="menu-item"><span>Banana Walnut Muffins</span></div>
-                <div class="menu-item"><span>Shahi Tukda</span></div>
-                <div class="menu-item"><span>Tiramisu</span></div>
-                <div class="menu-item"><span>Strawberry Surprise</span></div>
-                <div class="menu-item"><span>Banoffee Pie</span></div>
-                <div class="menu-item"><span>Baklava / Kunafa</span></div>
+                <div class="sub-cat">Indulgent Desserts</div>
+                <div class="menu-item">Fudgy Brownies</div>
+                <div class="menu-item">Date & Walnut Cake</div>
+                <div class="menu-item">Banana Walnut Muffins</div>
+                <div class="menu-item">Shahi Tukda</div>
+                <div class="menu-item">Classic Tiramisu</div>
+                <div class="menu-item">Strawberry Surprise</div>
+                <div class="menu-item">Banoffee Pie</div>
+                <div class="menu-item">Baklava / Kunafa</div>
 
-                <div class="sub-cat">Fari's Specials</div>
-                <div class="menu-item"><span>Raan Rice</span></div>
-                <div class="menu-item"><span>Mutton Haleem</span></div>
-                <div class="menu-item"><span>Mutton Harissa</span></div>
-                <div class="menu-item"><span>Murgh Musallam</span></div>
-                <div class="menu-item"><span>Gondh Ke Laddu / Papdi</span></div>
-                <div class="menu-item"><span>Parsi Mawa Cake</span></div>
+                <div class="sub-cat">Fari's Signature Specials</div>
+                <div class="menu-item">Raan Rice Platter</div>
+                <div class="menu-item">Special Mutton Haleem</div>
+                <div class="menu-item">Mutton Harissa</div>
+                <div class="menu-item">Murgh Musallam</div>
+                <div class="menu-item">Gondh Ke Laddu / Papdi</div>
+                <div class="menu-item">Parsi Mawa Cake</div>
             </div>
 
         </div>
     </section>
 
     <section id="contact" class="contact-section">
-        <h2 style="font-family: 'Playfair Display'; color: var(--navy); font-size: 3rem; margin-bottom: 2rem;">Ready to Order?</h2>
-        
-        <div class="qr-container">
-            <p style="margin-bottom: 10px; font-weight: bold; color: var(--navy);">SCAN TO VIEW MENU</p>
-            <img src="qr_code.png" alt="Scan for Menu" class="qr-img">
+        <div class="contact-container">
+            <h2 class="section-title" style="color: var(--navy); margin-bottom: 2rem;">Get in Touch</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem; color: #555;">Ready to experience authentic flavors? Contact us today to place your order.</p>
+            
+            <div class="contact-info">
+                <p><i class="fas fa-user-circle"></i> Farhat Sait</p>
+                <p><i class="fab fa-whatsapp-square"></i> +91 99861 89889</p>
+                <p><i class="fab fa-instagram-square"></i> @feast_and_flavours_fari</p>
+                <p><i class="fas fa-map-marked-alt"></i> Cooke Town, Bangalore</p>
+            </div>
+            
+            <br><br>
+            <a href="https://wa.me/919986189889" class="cta-btn" style="padding: 15px 40px; font-size: 1.1rem;"><i class="fab fa-whatsapp"></i> CHAT TO ORDER</a>
         </div>
-
-        <div class="contact-info">
-            <p><i class="fas fa-user"></i> <strong>Farhat Sait</strong></p>
-            <p><i class="fab fa-whatsapp"></i> +91 99861 89889</p>
-            <p><i class="fab fa-instagram"></i> @feast_and_flavours_fari</p>
-            <p><i class="fas fa-map-marker-alt"></i> Cooke Town, Bangalore</p>
-        </div>
-        
-        <br>
-        <a href="https://wa.me/919986189889" class="cta-btn" style="box-shadow: 0 5px 15px rgba(0,0,0,0.2);">WHATSAPP US</a>
     </section>
 
     <footer>
-        <p>&copy; 2025 Feast & Flavours. All Rights Reserved.</p>
+        <img src="logo.png" alt="FF Logo" style="height: 50px; margin-bottom: 1rem; opacity: 0.7;">
+        <p>&copy; 2025 Feast & Flavours. Crafted with love in Bangalore.</p>
     </footer>
+
+    <script>
+        // Pre-loader Script
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function() {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
+        // Scroll Progress Bar Script
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+    </script>
 
 </body>
 </html>
